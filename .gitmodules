@@ -1,0 +1,3 @@
+[submodule "libnice"]
+	path = libnice
+	url = git://git.collabora.co.uk/git/libnice.git
