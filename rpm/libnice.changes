@@ -1,0 +1,35 @@
+* Tue Apr 30 2013 Reto Zingg <reto.zingg@jollamobile.com> - 0.1.4
+- update to version 0.1.4
+- add tests package
+
+* Thu Aug 23 2012 Marko Saukko <marko.saukko@jollamobile.com> - 0.1.2
+- Update to version 0.1.2
+
+* Thu Dec 01 2011 Marko Saukko <marko.saukko@cybercom.com> - 0.1.1
+- Updated to version 0.1.1
+- Moved changelog to separate .changes file.
+
+* Tue Feb 15 2011 Senko Rasic <senko.rasic@collabora.co.uk> - 0.1.0
+- Upgrade to 0.1.0 (fixes: BUG#)
+  + Added nice_candidate_copy to the public API
+  + Make stun_timer timeouts configurable (Break API and ABI)
+  + Add compatibility support for MSOC 2007 and MSOC 2007 R2
+  + Add MS-TURN support for MSOC
+  + Added and completed TURN RFC 5766 support
+  + Add a nice_agent_set_port_range API to force a component to use a specific port
+  + Fix various bugs and memory leaks
+
+* Wed Jul 28 2010 Jian-feng Ding <jian-feng.ding@intel.com> - 0.0.13
+- Upgrade to 0.0.13 and enable spectacle packaging
+
+* Wed Dec  2 2009 Jian-feng Ding <jian-feng.ding@intel.com> - 0.0.10
+- Upgrade to 0.0.10, enable UPnP support in building
+
+* Wed Aug 26 2009 Jian-feng Ding <jian-feng.ding@intel.com> - 0.0.9
+- Upgrade to 0.0.9
+
+* Fri Apr 24 2009 Ding Jian-feng <jian-feng.ding@intel.com> - 0.0.6
+- Initial import into Moblin
+
+* Sat Dec 27 2008 Brian Pepple <bpepple@fedoraproject.org> - 0.0.4-1
+- Initial Fedora spec.
