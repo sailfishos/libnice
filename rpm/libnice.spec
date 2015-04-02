@@ -26,8 +26,8 @@ BuildRequires:  pkgconfig(glib-2.0) >= 2.13
 BuildRequires:  pkgconfig(gobject-2.0) >= 2.13
 BuildRequires:  pkgconfig(gthread-2.0) >= 2.13
 BuildRequires:  pkgconfig(gio-2.0) >= 2.13
-BuildRequires:  pkgconfig(gstreamer-0.10) >= 0.10.0
-BuildRequires:  pkgconfig(gstreamer-base-0.10) >= 0.10.0
+BuildRequires:  pkgconfig(gstreamer-1.0)
+BuildRequires:  pkgconfig(gstreamer-base-1.0)
 
 %description
 libnice is an implementation of the IETF draft Interactive Connectivity
@@ -127,7 +127,7 @@ install -m 0644 tests/tests.xml $RPM_BUILD_ROOT/opt/tests/%{name}/tests.xml
 %doc NEWS README COPYING COPYING.LGPL COPYING.MPL
 %{_bindir}/stunbdc
 %{_bindir}/stund
-%{_libdir}/gstreamer-0.10/libgstnice010.so
+%{_libdir}/gstreamer-1.0/libgstnice.so
 %{_libdir}/*.so.*
 # << files
 
