@@ -20,6 +20,7 @@ Source2:    INSIGNIFICANT
 Source3:    gtk-doc.m4
 Patch0:     nemo-tests-install.patch
 Patch1:     disable-gtkdoc.patch
+Patch2:     0001-workaround-our-old-automake.patch
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 BuildRequires:  pkgconfig(glib-2.0) >= 2.13
@@ -85,6 +86,8 @@ Requires:   %{name} = %{version}-%{release}
 %patch0 -p1
 # disable-gtkdoc.patch
 %patch1 -p1
+%patch2 -p1
+
 # >> setup
 %__cp $RPM_SOURCE_DIR/mktests.sh tests/
 %__chmod 0755 tests/mktests.sh
