@@ -89,7 +89,6 @@ Requires:   %{name} = %{version}-%{release}
 %__cp $RPM_SOURCE_DIR/mktests.sh tests/
 %__chmod 0755 tests/mktests.sh
 %__cp $RPM_SOURCE_DIR/INSIGNIFICANT tests/
-%__mkdir m4
 %__cp $RPM_SOURCE_DIR/gtk-doc.m4 m4/
 # << setup
 
