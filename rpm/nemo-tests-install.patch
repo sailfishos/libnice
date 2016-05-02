@@ -1,10 +1,11 @@
-diff -Naur libnice-0.1.4/tests/Makefile.am libnice-0.1.4-install-nemo-tests/tests/Makefile.am
---- libnice-0.1.4/tests/Makefile.am	2012-09-12 18:33:35.000000000 +0000
-+++ libnice-0.1.4-install-nemo-tests/tests/Makefile.am	2013-05-02 12:52:37.000000000 +0000
-@@ -70,3 +70,14 @@
- all-local:
- 	chmod a+x $(srcdir)/check-test-fullmode-with-stun.sh
+diff --git a/tests/Makefile.am b/tests/Makefile.am
+index 84c37be..0d61a34 100644
+--- a/tests/Makefile.am
++++ b/tests/Makefile.am
+@@ -114,3 +114,13 @@ all-local:
  	chmod a+x $(srcdir)/test-pseudotcp-random.sh
+ 
+ EXTRA_DIST = libnice.supp
 +
 +nemotestsbindir = /opt/tests/libnice/bin
 +nemotestsbin_PROGRAMS = $(check_PROGRAMS)
@@ -15,4 +16,3 @@ diff -Naur libnice-0.1.4/tests/Makefile.am libnice-0.1.4-install-nemo-tests/test
 +
 +nemotestsdatadir = /opt/tests/libnice/data
 +nobase_nemotestsdata_DATA = libnice-tests.list
-+

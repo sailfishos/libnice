@@ -20,14 +20,16 @@ Source2:    INSIGNIFICANT
 Source3:    gtk-doc.m4
 Patch0:     nemo-tests-install.patch
 Patch1:     disable-gtkdoc.patch
+Patch2:     0001-workaround-our-old-automake.patch
+Patch3:     0002-downgrade-automake-required-to-1.11.patch
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 BuildRequires:  pkgconfig(glib-2.0) >= 2.13
 BuildRequires:  pkgconfig(gobject-2.0) >= 2.13
 BuildRequires:  pkgconfig(gthread-2.0) >= 2.13
 BuildRequires:  pkgconfig(gio-2.0) >= 2.13
-BuildRequires:  pkgconfig(gstreamer-0.10) >= 0.10.0
-BuildRequires:  pkgconfig(gstreamer-base-0.10) >= 0.10.0
+BuildRequires:  pkgconfig(gstreamer-1.0)
+BuildRequires:  pkgconfig(gstreamer-base-1.0)
 
 %description
 libnice is an implementation of the IETF draft Interactive Connectivity
@@ -85,11 +87,13 @@ Requires:   %{name} = %{version}-%{release}
 %patch0 -p1
 # disable-gtkdoc.patch
 %patch1 -p1
+%patch2 -p1
+%patch3 -p1
+
 # >> setup
 %__cp $RPM_SOURCE_DIR/mktests.sh tests/
 %__chmod 0755 tests/mktests.sh
 %__cp $RPM_SOURCE_DIR/INSIGNIFICANT tests/
-%__mkdir m4
 %__cp $RPM_SOURCE_DIR/gtk-doc.m4 m4/
 # << setup
 
@@ -127,7 +131,7 @@ install -m 0644 tests/tests.xml $RPM_BUILD_ROOT/opt/tests/%{name}/tests.xml
 %doc NEWS README COPYING COPYING.LGPL COPYING.MPL
 %{_bindir}/stunbdc
 %{_bindir}/stund
-%{_libdir}/gstreamer-0.10/libgstnice010.so
+%{_libdir}/gstreamer-1.0/libgstnice.so
 %{_libdir}/*.so.*
 # << files
 
