@@ -1,6 +1,6 @@
 Name:       libnice
 Summary:    GLib ICE implementation
-Version:    0.1.10
+Version:    0.1.13
 Release:    1
 Group:      System/Libraries
 License:    LGPLv2 and MPLv1.1
@@ -11,8 +11,7 @@ Source2:    INSIGNIFICANT
 Source3:    gtk-doc.m4
 Patch0:     nemo-tests-install.patch
 Patch1:     disable-gtkdoc.patch
-Patch2:     0001-workaround-our-old-automake.patch
-Patch3:     0002-downgrade-automake-required-to-1.11.patch
+Patch2:     0001-fix-test-gstreamer.patch
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 BuildRequires:  pkgconfig(glib-2.0) >= 2.13
@@ -74,12 +73,9 @@ Requires:   %{name} = %{version}-%{release}
 %prep
 %setup -q -n %{name}-%{version}/%{name}
 
-# nemo-tests-install.patch
 %patch0 -p1
-# disable-gtkdoc.patch
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
 %__cp $RPM_SOURCE_DIR/mktests.sh tests/
 %__chmod 0755 tests/mktests.sh
