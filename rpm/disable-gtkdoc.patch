@@ -1,14 +1,11 @@
 diff --git a/autogen.sh b/autogen.sh
-index d58c834..2ba29e4 100755
+index b6efba6..8d91eaa 100755
 --- a/autogen.sh
 +++ b/autogen.sh
-@@ -2,9 +2,30 @@
- set -e
+@@ -22,9 +22,31 @@ if [ "$#" = 0 -a "x$NOCONFIGURE" = "x" ]; then
+ 	echo "" >&2
+ fi
  
- test -d m4 || mkdir m4
--gtkdocize || exit 1
- 
--autoreconf -fi
 +# check if gtk-doc is explicitly disabled
 +for ag_option in $@
 +do
@@ -28,10 +25,14 @@ index d58c834..2ba29e4 100755
 +    echo "         documentation and 'make dist' will not work."
 +    echo
 +else
-+    gtkdocize || exit $?
++    gtkdocize --copy || exit 1
 +fi
 +
-+autoreconf -fi -I m4
++
+ aclocal --install || exit 1
+-gtkdocize --copy || exit 1
+-autoreconf --verbose --force --install || exit 1
++autoreconf --verbose --force --install -I m4 || exit 1
  
- run_configure=true
- for arg in $*; do
+ cd "$olddir"
+ if [ "$NOCONFIGURE" = "" ]; then
