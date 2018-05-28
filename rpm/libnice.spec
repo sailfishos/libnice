@@ -1,6 +1,6 @@
 Name:       libnice
 Summary:    GLib ICE implementation
-Version:    0.1.13
+Version:    0.1.14
 Release:    1
 Group:      System/Libraries
 License:    LGPLv2 and MPLv1.1
@@ -20,6 +20,7 @@ BuildRequires:  pkgconfig(gthread-2.0) >= 2.13
 BuildRequires:  pkgconfig(gio-2.0) >= 2.13
 BuildRequires:  pkgconfig(gstreamer-1.0)
 BuildRequires:  pkgconfig(gstreamer-base-1.0)
+BuildRequires:  pkgconfig(gnutls)
 
 %description
 libnice is an implementation of the IETF draft Interactive Connectivity
@@ -83,7 +84,7 @@ Requires:   %{name} = %{version}-%{release}
 %__cp $RPM_SOURCE_DIR/gtk-doc.m4 m4/
 
 %build
-%autogen --no-configure --disable-gtk-doc
+%autogen --disable-gtk-doc
 
 %configure --disable-static
 
