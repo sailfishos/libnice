@@ -42,15 +42,14 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 
-%if 0%{?with_docs}
-%package docs
-Summary:    Documentation for development with libnice
+%package doc
+Summary:    Documentation for %{name}
 Group:      Documentation
 Requires:   %{name} = %{version}-%{release}
+Obsoletes:  %{name}-docs
 
-%description docs
+%description doc
 %{summary}.
-%endif
 
 
 %package tests
@@ -90,14 +89,17 @@ Requires:   %{name} = %{version}-%{release}
 
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
-make %{?jobs:-j%jobs}
+make %{?_smp_mflags}
 tests/mktests.sh > tests/tests.xml
 
 %install
 rm -rf %{buildroot}
 
 %make_install
-install -m 0644 tests/tests.xml $RPM_BUILD_ROOT/opt/tests/%{name}/tests.xml
+install -m 0644 tests/tests.xml %{buildroot}/opt/tests/%{name}/tests.xml
+
+mkdir -p %{buildroot}%{_docdir}/%{name}-%{version}
+install -m0644 -t %{buildroot}%{_docdir}/%{name}-%{version} NEWS README
 
 %post -p /sbin/ldconfig
 
@@ -105,11 +107,13 @@ install -m 0644 tests/tests.xml $RPM_BUILD_ROOT/opt/tests/%{name}/tests.xml
 
 %files
 %defattr(-,root,root,-)
-%doc NEWS README COPYING COPYING.LGPL COPYING.MPL
+%license COPYING COPYING.LGPL COPYING.MPL
 %{_bindir}/stunbdc
 %{_bindir}/stund
 %{_libdir}/gstreamer-1.0/libgstnice.so
 %{_libdir}/*.so.*
+%exclude %{_libdir}/girepository-1.0/Nice-0.1.typelib
+%exclude %{_datadir}/gir-1.0/Nice-0.1.gir
 
 %files devel
 %defattr(-,root,root,-)
@@ -117,15 +121,13 @@ install -m 0644 tests/tests.xml $RPM_BUILD_ROOT/opt/tests/%{name}/tests.xml
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/nice.pc
 
-%if 0%{?with_docs}
-%files docs
+%files doc
 %defattr(-,root,root,-)
-%{_datadir}/gtk-doc/html/%{name}/
-%endif
+%{_docdir}/%{name}-%{version}
 
 %files tests
 %defattr(-,root,root,-)
-/opt/tests/%{name}/*
+/opt/tests/%{name}
 
 %files examples
 %defattr(-,root,root,-)
