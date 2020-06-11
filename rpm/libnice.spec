@@ -2,10 +2,9 @@ Name:       libnice
 Summary:    GLib ICE implementation
 Version:    0.1.14
 Release:    1
-Group:      System/Libraries
-License:    LGPLv2 and MPLv1.1
-URL:        http://nice.freedesktop.org/wiki/
-Source0:    http://nice.freedesktop.org/releases/%{name}-%{version}.tar.gz
+License:    LGPLv2.1 and MPLv1.1
+URL:        https://libnice.freedesktop.org/
+Source0:    %{name}-%{version}.tar.gz
 Source1:    mktests.sh
 Source2:    INSIGNIFICANT
 Source3:    gtk-doc.m4
@@ -71,16 +70,12 @@ Requires:   %{name} = %{version}-%{release}
 
 
 %prep
-%setup -q -n %{name}-%{version}/%{name}
+%autosetup -p1 -n %{name}-%{version}/%{name}
 
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-
-%__cp $RPM_SOURCE_DIR/mktests.sh tests/
+%__cp %{SOURCE1} tests/
 %__chmod 0755 tests/mktests.sh
-%__cp $RPM_SOURCE_DIR/INSIGNIFICANT tests/
-%__cp $RPM_SOURCE_DIR/gtk-doc.m4 m4/
+%__cp %{SOURCE2} tests/
+%__cp %{SOURCE3} m4/
 
 %build
 %autogen --disable-gtk-doc
@@ -93,13 +88,8 @@ make %{?_smp_mflags}
 tests/mktests.sh > tests/tests.xml
 
 %install
-rm -rf %{buildroot}
-
 %make_install
 install -m 0644 tests/tests.xml %{buildroot}/opt/tests/%{name}/tests.xml
-
-mkdir -p %{buildroot}%{_docdir}/%{name}-%{version}
-install -m0644 -t %{buildroot}%{_docdir}/%{name}-%{version} NEWS README
 
 %post -p /sbin/ldconfig
 
@@ -123,7 +113,7 @@ install -m0644 -t %{buildroot}%{_docdir}/%{name}-%{version} NEWS README
 
 %files doc
 %defattr(-,root,root,-)
-%{_docdir}/%{name}-%{version}
+%doc NEWS README
 
 %files tests
 %defattr(-,root,root,-)
