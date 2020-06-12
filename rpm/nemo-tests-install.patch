@@ -1,11 +1,11 @@
 diff --git a/tests/Makefile.am b/tests/Makefile.am
-index 84c37be..0d61a34 100644
+index 473e5e0..3ea1985 100644
 --- a/tests/Makefile.am
 +++ b/tests/Makefile.am
-@@ -114,3 +114,13 @@ all-local:
- 	chmod a+x $(srcdir)/test-pseudotcp-random.sh
- 
- EXTRA_DIST = libnice.supp
+@@ -150,3 +150,13 @@ EXTRA_DIST = \
+ 	libnice.supp \
+ 	meson.build \
+ 	test-fullmode-with-stun.c
 +
 +nemotestsbindir = /opt/tests/libnice/bin
 +nemotestsbin_PROGRAMS = $(check_PROGRAMS)
