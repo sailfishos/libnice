@@ -31,7 +31,6 @@ for audio/video calls.
 
 %package devel
 Summary:    Development files for %{name}
-Group:      Development/Libraries
 Requires:   %{name} = %{version}-%{release}
 Requires:   glib2-devel
 
@@ -42,7 +41,7 @@ developing applications that use %{name}.
 
 %package doc
 Summary:    Documentation for %{name}
-Group:      Documentation
+BuildArch:  noarch
 Requires:   %{name} = %{version}-%{release}
 Obsoletes:  %{name}-docs
 
@@ -52,7 +51,6 @@ Obsoletes:  %{name}-docs
 
 %package tests
 Summary:    Tests and tests.xml for %{name}
-Group:      Development/Libraries
 Requires:   %{name} = %{version}-%{release}
 
 %description tests
@@ -68,13 +66,11 @@ The %{name}-tests package contains tests and a tests.xml file %{name}.
 %__cp %{SOURCE3} m4/
 
 %build
-%autogen --disable-gtk-doc
-
-%configure --disable-static
+%autogen --disable-gtk-doc --disable-static
 
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
-make %{?_smp_mflags}
+%make_build
 tests/mktests.sh > tests/tests.xml
 
 %install
