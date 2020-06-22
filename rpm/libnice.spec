@@ -52,6 +52,7 @@ Obsoletes:  %{name}-docs
 %package tests
 Summary:    Tests and tests.xml for %{name}
 Requires:   %{name} = %{version}-%{release}
+Requires:   diffutils
 
 %description tests
 The %{name}-tests package contains tests and a tests.xml file %{name}.
