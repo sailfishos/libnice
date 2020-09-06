@@ -1,18 +1,40 @@
-diff --git a/tests/Makefile.am b/tests/Makefile.am
-index 473e5e0..3ea1985 100644
---- a/tests/Makefile.am
-+++ b/tests/Makefile.am
-@@ -150,3 +150,13 @@ EXTRA_DIST = \
- 	libnice.supp \
- 	meson.build \
- 	test-fullmode-with-stun.c
+diff --git a/tests/meson.build b/tests/meson.build
+index e238a92..e05f2bc 100644
+--- a/tests/meson.build
++++ b/tests/meson.build
+@@ -40,6 +40,8 @@ endif
+ tenv = environment()
+ tenv.set('BUILT_WITH_MESON', '1')
+ 
++nemo_tests_bin = '/opt/tests/libnice/bin'
 +
-+nemotestsbindir = /opt/tests/libnice/bin
-+nemotestsbin_PROGRAMS = $(check_PROGRAMS)
-+nemotestsbin_SCRIPTS = $(dist_check_SCRIPTS)
-+
-+libnice-tests.list:
-+	$(AM_V_GEN)echo $(check_PROGRAMS) > $@
-+
-+nemotestsdatadir = /opt/tests/libnice/data
-+nobase_nemotestsdata_DATA = libnice-tests.list
+ foreach tname : nice_tests
+   if tname.startswith('test-io-stream') or tname.startswith('test-send-recv')
+     extra_src = ['test-io-stream-common.c']
+@@ -52,7 +54,7 @@ foreach tname : nice_tests
+     include_directories: nice_incs,
+     dependencies: [nice_deps, libm],
+     link_with: [libagent, libstun, libsocket, librandom],
+-    install: false)
++    install: true, install_dir: nemo_tests_bin)
+   set_variable(tname.underscorify(), exe)
+   test(tname, exe, env: tenv)
+ 
+@@ -60,7 +62,7 @@ foreach tname : nice_tests
+     wrapper_exe = executable ('nice-test-fullmode-with-stun',
+ 			      'test-fullmode-with-stun.c',
+ 			      dependencies: gio_deps,
+-			      install: false)
++			      install: true, install_dir: nemo_tests_bin)
+     test('test-fullmode-with-stun', wrapper_exe,
+ 	 args: [stund_exe, test_fullmode],
+ 	 env: tenv,
+@@ -79,7 +81,7 @@ if gst_dep.found()
+       include_directories: nice_incs,
+       dependencies: [nice_deps, gst_check, libm],
+       link_with: libnice,
+-      install: false)
++      install: true, install_dir: nemo_tests_bin)
+     gst_env = tenv
+     gst_env.append('GST_PLUGIN_PATH_1_0', join_paths(meson.current_build_dir(), '..', 'gst'))
+     test('test-gstreamer', exe, env: gst_env)
