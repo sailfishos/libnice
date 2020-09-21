@@ -28,7 +28,7 @@ done
 cat <<EOF
             <case name="test-pseudotcp-random">
                 <step>dd if=/dev/urandom of=/tmp/rand count=1024 ibs=1024</step>
-                <step>/opt/tests/libnice/bin/test-pseudotcp /tmp/rand /tmp/rand.copy</step>
+                <step>/opt/tests/libnice/bin/nice-test-pseudotcp /tmp/rand /tmp/rand.copy</step>
                 <step>diff /tmp/rand /tmp/rand.copy</step>
                 <step>rm /tmp/rand /tmp/rand.copy</step>
             </case>

@@ -2,23 +2,22 @@ Name:       libnice
 Summary:    GLib ICE implementation
 Version:    0.1.17
 Release:    1
-License:    LGPLv2.1 and MPLv1.1
+License:    LGPLv2 and MPLv1.1
 URL:        https://libnice.freedesktop.org/
-Source0:    %{name}-%{version}.tar.gz
+Source0:    %{name}-%{version}.tar.bz2
 Source1:    mktests.sh
 Source2:    INSIGNIFICANT
-Source3:    gtk-doc.m4
 Patch0:     nemo-tests-install.patch
-Patch1:     disable-gtkdoc.patch
-Requires(post): /sbin/ldconfig
+Requires(post):   /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
+BuildRequires:  meson
 BuildRequires:  pkgconfig(glib-2.0) >= 2.54
 BuildRequires:  pkgconfig(gobject-2.0) >= 2.54
 BuildRequires:  pkgconfig(gthread-2.0) >= 2.54
 BuildRequires:  pkgconfig(gio-2.0) >= 2.54
 BuildRequires:  pkgconfig(gstreamer-1.0)
 BuildRequires:  pkgconfig(gstreamer-base-1.0)
-BuildRequires:  pkgconfig(gnutls) >= 2.12.0
+BuildRequires:  pkgconfig(openssl)
 
 %description
 libnice is an implementation of the IETF draft Interactive Connectivity
@@ -62,21 +61,17 @@ The %{name}-tests package contains tests and a tests.xml file %{name}.
 %autosetup -p1 -n %{name}-%{version}/%{name}
 
 %__cp %{SOURCE1} tests/
-%__chmod 0755 tests/mktests.sh
 %__cp %{SOURCE2} tests/
-%__cp %{SOURCE3} m4/
 
 %build
-%autogen --disable-gtk-doc --disable-static
-
-sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
-sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
-%make_build
-tests/mktests.sh > tests/tests.xml
+%meson -Dcrypto-library=openssl -Dgupnp=disabled -Dexamples=disabled -Dgtk_doc=disabled -Dintrospection=disabled
+%meson_build
 
 %install
-%make_install
-install -m 0644 tests/tests.xml %{buildroot}/opt/tests/%{name}/tests.xml
+%meson_install
+
+find %{buildroot}/opt/tests/%{name}/bin -maxdepth 1 -executable -type f -exec basename {} ';' > tests/libnice-tests.list
+sh tests/mktests.sh > %{buildroot}/opt/tests/%{name}/tests.xml
 
 %post -p /sbin/ldconfig
 
