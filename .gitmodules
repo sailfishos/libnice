@@ -1,3 +1,3 @@
 [submodule "libnice"]
 	path = libnice
-	url = https://git.sailfishos.org/mirror/libnice.git
+	url = https://github.com/sailfishos-mirror/libnice.git
