@@ -5,9 +5,8 @@ Release:    1
 License:    LGPLv2 and MPLv1.1
 URL:        https://libnice.freedesktop.org/
 Source0:    %{name}-%{version}.tar.bz2
-Source1:    mktests.sh
-Source2:    INSIGNIFICANT
 Patch0:     nemo-tests-install.patch
+Patch1:     0001-Add-mktests.sh.patch
 Requires(post):   /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 BuildRequires:  meson
@@ -42,7 +41,6 @@ developing applications that use %{name}.
 Summary:    Documentation for %{name}
 BuildArch:  noarch
 Requires:   %{name} = %{version}-%{release}
-Obsoletes:  %{name}-docs
 
 %description doc
 %{summary}.
@@ -59,9 +57,6 @@ The %{name}-tests package contains tests and a tests.xml file %{name}.
 
 %prep
 %autosetup -p1 -n %{name}-%{version}/%{name}
-
-%__cp %{SOURCE1} tests/
-%__cp %{SOURCE2} tests/
 
 %build
 %meson -Dcrypto-library=openssl -Dgupnp=disabled -Dexamples=disabled -Dgtk_doc=disabled -Dintrospection=disabled
