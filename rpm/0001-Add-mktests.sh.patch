@@ -1,0 +1,57 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Pekka Vuorela <pekka.vuorela@jolla.com>
+Date: Fri, 18 Feb 2022 14:33:47 +0200
+Subject: [PATCH] Add mktests.sh
+
+---
+ tests/mktests.sh | 38 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 38 insertions(+)
+ create mode 100644 tests/mktests.sh
+
+diff --git a/tests/mktests.sh b/tests/mktests.sh
+new file mode 100644
+index 0000000..5777098
+--- /dev/null
++++ b/tests/mktests.sh
+@@ -0,0 +1,38 @@
++#!/bin/sh
++
++cat <<EOF
++<?xml version="1.0" encoding="UTF-8"?>
++<testdefinition version="1.0">
++    <suite name="libnice-tests">
++        <description>Libnice tests</description>
++        <set name="libnice-unit-tests">
++EOF
++
++for testcase in $(cat tests/libnice-tests.list|sort)
++do
++    testcase_name=$(echo $testcase|sed 's/\//_/')
++    attributes="name=\"$testcase_name\""
++    # this handled as special case as it requires extra parameters
++    if [ "$testcase_name" != "nice-test-fullmode-with-stun" ]; then
++        cat <<EOF
++            <case $attributes>
++                <step>/opt/tests/libnice/bin/$testcase</step>
++            </case>
++EOF
++    fi
++done
++
++cat <<EOF
++            <case name="nice-test-fullmode-with-stun">
++                <step>/opt/tests/libnice/bin/nice-test-fullmode-with-stun /usr/bin/stund /opt/tests/libnice/bin/nice-test-fullmode </step>
++            </case>
++            <case name="test-pseudotcp-random">
++                <step>dd if=/dev/urandom of=/tmp/rand count=1024 ibs=1024</step>
++                <step>/opt/tests/libnice/bin/nice-test-pseudotcp /tmp/rand /tmp/rand.copy</step>
++                <step>diff /tmp/rand /tmp/rand.copy</step>
++                <step>rm /tmp/rand /tmp/rand.copy</step>
++            </case>
++        </set>
++    </suite>
++</testdefinition>
++EOF
+-- 
+2.34.1
+
