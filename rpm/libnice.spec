@@ -1,6 +1,6 @@
 Name:       libnice
 Summary:    GLib ICE implementation
-Version:    0.1.17
+Version:    0.1.21
 Release:    1
 License:    LGPLv2 and MPLv1.1
 URL:        https://libnice.freedesktop.org/
