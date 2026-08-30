@@ -1,9 +1,9 @@
 Name:       libnice
 Summary:    GLib ICE implementation
-Version:    0.1.21
+Version:    0.1.23
 Release:    1
 License:    LGPLv2 and MPLv1.1
-URL:        https://libnice.freedesktop.org/
+URL:        https://github.com/sailfishos/libnice
 Source0:    %{name}-%{version}.tar.bz2
 Patch0:     nemo-tests-install.patch
 Patch1:     0001-Add-mktests.sh.patch
@@ -73,7 +73,6 @@ sh tests/mktests.sh > %{buildroot}/opt/tests/%{name}/tests.xml
 %postun -p /sbin/ldconfig
 
 %files
-%defattr(-,root,root,-)
 %license COPYING COPYING.LGPL COPYING.MPL
 %{_bindir}/stunbdc
 %{_bindir}/stund
@@ -81,15 +80,12 @@ sh tests/mktests.sh > %{buildroot}/opt/tests/%{name}/tests.xml
 %{_libdir}/*.so.*
 
 %files devel
-%defattr(-,root,root,-)
 %{_includedir}/*
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/nice.pc
 
 %files doc
-%defattr(-,root,root,-)
 %doc NEWS README
 
 %files tests
-%defattr(-,root,root,-)
 /opt/tests/%{name}
