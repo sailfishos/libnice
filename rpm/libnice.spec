@@ -1,12 +1,10 @@
 Name:       libnice
 Summary:    GLib ICE implementation
-Version:    0.1.23
+Version:    0.1.24
 Release:    1
 License:    LGPLv2 and MPLv1.1
 URL:        https://github.com/sailfishos/libnice
 Source0:    %{name}-%{version}.tar.bz2
-Patch0:     nemo-tests-install.patch
-Patch1:     0001-Add-mktests.sh.patch
 Requires(post):   /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 BuildRequires:  meson
@@ -46,15 +44,6 @@ Requires:   %{name} = %{version}-%{release}
 %{summary}.
 
 
-%package tests
-Summary:    Tests and tests.xml for %{name}
-Requires:   %{name} = %{version}-%{release}
-Requires:   diffutils
-
-%description tests
-The %{name}-tests package contains tests and a tests.xml file %{name}.
-
-
 %prep
 %autosetup -p1 -n %{name}-%{version}/%{name}
 
@@ -64,9 +53,6 @@ The %{name}-tests package contains tests and a tests.xml file %{name}.
 
 %install
 %meson_install
-
-find %{buildroot}/opt/tests/%{name}/bin -maxdepth 1 -executable -type f -exec basename {} ';' > tests/libnice-tests.list
-sh tests/mktests.sh > %{buildroot}/opt/tests/%{name}/tests.xml
 
 %post -p /sbin/ldconfig
 
@@ -86,6 +72,3 @@ sh tests/mktests.sh > %{buildroot}/opt/tests/%{name}/tests.xml
 
 %files doc
 %doc NEWS README
-
-%files tests
-/opt/tests/%{name}
